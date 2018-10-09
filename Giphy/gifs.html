@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Animal Buttons</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+    crossorigin="anonymous">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" href="../index.html">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="#about1">About</a>
+                <a class="nav-item nav-link" href="#portfolio">Portfolio</a>
+                <a class="nav-item nav-link" href="/Giphy/gifs.html">Contact</a>
+                <a class="nav-item nav-link" href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+  <div id="button-land">
+
+  </div>
+
+  <div class="input-group input-group-md">
+
+    <input id="animal-add" type="text" class="form-search" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"
+      placeholder="Add an animal button!">
+    <div class="input-group-prepend">
+      <button type="submit" class="btn btn-primary" id="add" data-animal="monkey">Add</button>
+    </div>
+  </div>
+
+  <div id="gifs-appear-here">
+  </div>
+
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+
+    var animalList = ["lion", "monkey", "cat", "echidna", "platypus"];
+
+    function makeButton(buttonName) {
+      var newButton = $("<button>" + buttonName + "</button>");
+      newButton.addClass("animal-button")
+      newButton.attr("data-animal", buttonName);
+      $("#button-land").append(newButton)
+    }
+
+    function refresh() {
+      $("#button-land").empty();
+
+      for (var i = 0; i < animalList.length; i++) {
+        makeButton(animalList[i]);
+      }
+
+
+      // Adding click event listen listener to all buttons
+      $(".animal-button").on("click", function () {
+        // Grabbing and storing the data-animal property value from the button
+        $("#gifs-appear-here").empty();
+        console.log(this)
+        var animal = $(this).attr("data-animal");
+
+        // Constructing a queryURL using the animal name
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+          animal + "&api_key=dc6zaTOxFJmzC&limit=10";
+
+        // Performing an AJAX request with the queryURL
+        $.ajax({
+          url: queryURL,
+          method: "GET"
+        })
+          // After data comes back from the request
+          .then(function (response) {
+            console.log(queryURL);
+
+            console.log(response);
+            // storing the data from the AJAX request in the results variable
+            var results = response.data;
+
+            // Looping through each result item
+            for (var i = 0; i < results.length; i++) {
+
+              // Creating and storing a div tag
+              var animalDiv = $("<div>");
+
+              // Creating a paragraph tag with the result item's rating
+              var p = $("<p>").text("Rating: " + results[i].rating);
+
+              // Creating and storing an image tag
+              var animalImage = $("<img>");
+
+              animalImage.addClass("animal-gif")
+              // Setting the src attribute of the image to a property pulled off the result item
+              animalImage.attr("src", results[i].images.fixed_height.url);
+              animalImage.attr("data-animate", results[i].images.fixed_height.url);
+              animalImage.attr("data-still", results[i].images.fixed_height_still.url);
+              animalImage.attr("data-state", "animate");
+
+              // Appending the paragraph and image tag to the animalDiv
+              animalDiv.append(p);
+              animalDiv.append(animalImage);
+
+              $("#gifs-appear-here").prepend(animalDiv);
+
+            }
+
+            $(".animal-gif").on("click", function () {
+              console.log(this)
+
+              var state = $(this).attr("data-state");
+              // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+              // Then, set the image's data-state to animate
+              // Else set src to the data-still value
+              if (state === "still") {
+                $(this).attr("src", $(this).attr("data-animate"));
+                $(this).attr("data-state", "animate");
+              } else {
+                $(this).attr("src", $(this).attr("data-still"));
+                $(this).attr("data-state", "still");
+              }
+            });
+
+          });
+      });
+
+    }
+
+    refresh()
+
+
+
+    $("#add").on("click", function () {
+
+      var animalData = $("#animal-add").val();
+
+      animalList.push(animalData);
+
+      console.log(animalList)
+
+      refresh()
+
+    })
+
+
+  </script>
+</body>
+
+</html>
