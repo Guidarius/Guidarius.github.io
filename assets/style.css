@@ -8,15 +8,27 @@ a
     color: black
 }
 
+.row
+{
+    padding-top: 5%;
+}
+
 #starter
 {
     background-color: black;
     color: whitesmoke;
 }
 
-#about
+#about1
 {
-    background-color: grey;
+    background-color: rgb(50,50,50);
+    color: white;
+}
+
+#about2
+{
+    background-color: rgb(75,75,75);
+    color: white;
 }
 
 #portfolio
