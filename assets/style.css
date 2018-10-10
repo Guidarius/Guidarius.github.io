@@ -147,6 +147,7 @@ img
 .square-box{
   position: relative;
   width: 40%;
+  height: 300px;
   overflow: hidden;
   margin-right: 2%;
   margin-left: 2%;
@@ -187,16 +188,11 @@ img
 @media only screen and (max-width: 700px)
 {
 
-  section
-{
-    text-align:center;
-    height: 1200px;
-}
 
   .square-box{
     position: relative;
     width: 45%;
-    height: 500px;
+    height: 400px;
     overflow: hidden;
     margin-right: 2%;
     margin-left: 2%;
