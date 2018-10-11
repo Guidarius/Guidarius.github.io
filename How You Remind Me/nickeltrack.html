@@ -7,7 +7,7 @@
 </head>
 
 <body>
-
+    bb
     <div class="flex-container">
 
         <div class='square-box'>
@@ -47,6 +47,54 @@
 <script type="text/javascript">
 
     var artist = "Nickelback";
+    var currentDate = 0;
+
+    function updatePage(response) {
+        console.log(response);
+        console.log("------------------------------------");
+
+        clear();
+
+        // Loop through and build elements for the defined number of crimes
+        for (var i = 0; i < response.length; i++) {
+
+            //this just makes it easier so we're not typing [i] all the time
+            var crimeInfo = response[i];
+
+            // Creates a list group for each crime
+            var $crimeContent = $("<ul>");
+            $crimeContent.addClass("list-group");
+
+            // Add the newly created element to the DOM
+            $("#crime-container").append($crimeContent);
+
+            // If there is an address, adds an address
+            crimeAddressList.push(crimeInfo.address);
+            zipCodeList.push(crimeInfo.zipcode)
+            var incidentAddress = crimeInfo.address;
+            var $crimeContentItem = $("<li class='list-group-item articleHeadline'>");
+
+            if (incidentAddress) {
+                console.log(incidentAddress);
+                $crimeContentItem.append(
+                    "<strong> " +
+                    incidentAddress +
+                    "</strong>"
+                );
+            }
+
+            // Adds the description of the crime
+            var crime = crimeInfo.offincident;
+
+            if (crime) {
+                //console.log(crime);
+                $crimeContentItem.append("<h5>" + crime + "</h5>");
+            }
+
+            // Append the article
+            $crimeContent.append($crimeContentItem);
+        }
+    }
 
     function eventSearch() {
         var oArgs = {
@@ -63,7 +111,7 @@
 
             keywords: artist,
 
-            sort_order: "popularity",
+            sort_order: "date",
 
         };
 
@@ -80,20 +128,9 @@
 
                 if (eventData[i].performers != null) {
 
-                    if (Array.isArray(eventData[i].performers.performer)) {
-
-                        for (j = 0; j < eventData[i].performers.performer.length; j++) {
-                            console.log(oData.events.event[i].performers.performer[j].name)
-                            console.log(oData.events.event[i].start_time)
-
-                        }
-
-
-                    }
-
                     if (eventData[i].performers.performer.name == artist) {
                         console.log(eventData[i].performers.performer.name);
-                        eventLat = eventData[i].latitude;
+
                     }
 
                 }
@@ -104,6 +141,8 @@
 
         });
     }
+
+
 
     eventSearch();
 
