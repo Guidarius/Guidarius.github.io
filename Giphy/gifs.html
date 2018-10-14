@@ -3,6 +3,8 @@
 
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Animal Buttons</title>
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
@@ -11,38 +13,31 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="../index.html">Home <span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" href="#about1">About</a>
-                <a class="nav-item nav-link" href="#portfolio">Portfolio</a>
-                <a class="nav-item nav-link" href="/Giphy/gifs.html">Contact</a>
-                <a class="nav-item nav-link" href="#contact">Contact</a>
-            </div>
-        </div>
-    </nav>
-
-  <div id="button-land">
-
-  </div>
-
-  <div class="input-group input-group-md">
-
-    <input id="animal-add" type="text" class="form-search" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"
-      placeholder="Add an animal button!">
-    <div class="input-group-prepend">
-      <button type="submit" class="btn btn-primary" id="add" data-animal="monkey">Add</button>
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <div id="button-land">
+      </div>
     </div>
   </div>
 
-  <div id="gifs-appear-here">
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <input id="animal-add" type="text" class="form-search" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"
+        placeholder="Add an animal button!">
+      <div class="input-group-prepend">
+        <button type="submit" class="btn btn-primary" id="add" data-animal="monkey">Add</button>
+      </div>
+    </div>
   </div>
+
+
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <div id="gifs-appear-here">
+      </div>
+    </div>
+  </div>
+
 
 
 
@@ -51,7 +46,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript">
 
-    var animalList = ["lion", "monkey", "cat", "echidna", "platypus"];
+    var animalList = ["lion", "cat", "echidna", "platypus"];
 
     function makeButton(buttonName) {
       var newButton = $("<button>" + buttonName + "</button>");
